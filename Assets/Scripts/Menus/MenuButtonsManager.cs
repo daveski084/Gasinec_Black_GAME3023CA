@@ -9,12 +9,13 @@
 *
 * Description        : Controls button behaviour and scene managment.
 *
-* Last modified      : 21/10/06
+* Last modified      : 21/11/01
 *
 * Revision History   :
 *
 *Date        Author Ref    Revision (Date in YYYYMMDD format) 
 *21/10/06    David Gasinec        Created script. 
+*
 *
 |**********************************************************************/
 
@@ -26,20 +27,34 @@ using UnityEngine.SceneManagement;
 public class MenuButtonsManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
+    //void Start()
+    //{
         
-    }
+    //}
 
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
         
-    }
+    //}
 
     public void OnStartButtonPressed()
     {
         Debug.Log("Start Button Pressed!");
         SceneManager.LoadScene("MainMenu");
     }
+
+    // Main menu button functionality. 
+    public void OnLoadButtonPressed()
+    {
+        //TODO: Will load the player's save file. 
+
+    }
+
+    public void OnOptionsButtonPressed()
+    {
+        Debug.Log("Options button pressed");
+        SceneManager.LoadScene("Options");
+    }
+
 }
