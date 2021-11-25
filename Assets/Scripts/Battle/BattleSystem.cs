@@ -15,7 +15,7 @@ public enum BattleState
     LOST
 }
 
-//Use an enum to determine which battle object the player has encountered. 
+//Use an enum to determine which battle object to load based on the one the player has encountered. 
 public enum BattleObjectCase
 {
     DUMMY,
@@ -61,6 +61,8 @@ public class BattleSystem : MonoBehaviour
 
         GameObject enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);
         enemyBO = enemyGameObject.GetComponent<BattleObject>();
+
+        
         dialogueText.text = "A wild " + enemyBO.objName + " approaches...";
 
         playerHUD.SetHUD(playerBO);
@@ -141,6 +143,8 @@ public class BattleSystem : MonoBehaviour
         bool isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
         playerHUD.UpdateHP(enemyBO.damage);
 
+        //Debug.Log(enemyBO.currHP);
+
         yield return new WaitForSeconds(1.0f);
 
         if (isPlayerDead)
@@ -148,12 +152,26 @@ public class BattleSystem : MonoBehaviour
             currState = BattleState.LOST;
             EndBattle();
         }
+        else if (enemyBO.currHP < (enemyBO.maxHP / 2)) // Enemy heals if there is less than half of health. 
+        {
+            EnemyHeal();
+            currState = BattleState.PLAYERTURN;
+            yield return new WaitForSeconds(2.0f);
+            enemyBO.currHP += 10;
+            PlayerTurn();
+        }
         else
         {
             currState = BattleState.PLAYERTURN;
             PlayerTurn();
         }
     }
+
+    void EnemyHeal()
+    {
+        dialogueText.text = enemyBO.objName + " has healed a little but.";
+    }
+
 
 
     // Ability button logic:
@@ -173,4 +191,6 @@ public class BattleSystem : MonoBehaviour
         // Heal the player.
         StartCoroutine(PlayerHeal());
     }
+
+    
 }
