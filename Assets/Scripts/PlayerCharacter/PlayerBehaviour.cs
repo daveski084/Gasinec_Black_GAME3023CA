@@ -27,7 +27,8 @@ public class PlayerBehaviour : MonoBehaviour
 {
 
     public float playerSpeed = 1.0f;
-    //Future animator
+    public Animator playerAnimator;
+
 
     // Start is called before the first frame update
     //void Start()
@@ -43,21 +44,30 @@ public class PlayerBehaviour : MonoBehaviour
         float playerInputY = Input.GetAxisRaw("Vertical");
         Vector2 direction = Vector2.zero;
 
-        if(playerInputX > 0)
+       
+        if(playerInputX > 0)  //right
         {
             direction.x = 1;
+            playerAnimator.SetInteger("playerAnimationState", 3);
         }
-        else if (playerInputX < 0)
+        else if (playerInputX < 0)  //left
         {
             direction.x = -1;
+            playerAnimator.SetInteger("playerAnimationState", 4);
         }
-        else if (playerInputY > 0)
+        else if (playerInputY > 0) // up
         {
             direction.y = 1;
+            playerAnimator.SetInteger("playerAnimationState", 2);
         }
-        else if (playerInputY < 0)
+        else if (playerInputY < 0) //down 
         {
             direction.y = -1;
+            playerAnimator.SetInteger("playerAnimationState", 1);
+        }
+        else if (playerInputX == 0 && playerInputY == 0)
+        {
+            playerAnimator.SetInteger("playerAnimationState", 0);
         }
 
         transform.Translate(direction * playerSpeed * Time.deltaTime, Space.World); 

@@ -9,6 +9,7 @@ public class BattleObject : MonoBehaviour
     public int damage;
     public int maxHP;
     public int currHP;
+    
 
 
 

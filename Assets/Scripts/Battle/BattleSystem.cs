@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// TODO: Nov 29, left of owrking on the HP bar. 
 
 // Essientially a state machine without the machine part :*)
 public enum BattleState
@@ -156,8 +157,8 @@ public class BattleSystem : MonoBehaviour
         {
             EnemyHeal();
             currState = BattleState.PLAYERTURN;
-            yield return new WaitForSeconds(2.0f);
             enemyBO.currHP += 10;
+            yield return new WaitForSeconds(2.0f);
             PlayerTurn();
         }
         else
