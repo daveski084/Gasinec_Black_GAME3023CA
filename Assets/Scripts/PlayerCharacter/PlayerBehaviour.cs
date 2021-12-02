@@ -30,11 +30,11 @@ public class PlayerBehaviour : MonoBehaviour
     public float playerSpeed = 1.0f;
     public Animator playerAnimator;
 
+  
 
-    // Start is called before the first frame update
     //void Start()
     //{
-        
+       
     //}
 
     // Update is called once per frame

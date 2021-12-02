@@ -41,4 +41,6 @@ public class BattleHUD : MonoBehaviour
     {
         hpBar.value = HP;
     }
+
+    
 }

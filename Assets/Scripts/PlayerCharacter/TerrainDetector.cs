@@ -24,26 +24,61 @@ using UnityEngine;
 
 public class TerrainDetector : MonoBehaviour
 {
-     
 
-    // Start is called before the first frame update
+    //Audio
+    Rigidbody2D rb;
+    AudioSource audioSrc;
+
+
+    bool hasStepPlayed;
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
+        audioSrc = GetComponent<AudioSource>();
+        hasStepPlayed = false;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    // Player walks onto grass play steps.
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.tag == "Player" && PlayerBehaviour.isMoving == true)
+        {
+            audioSrc.Play();
+            print("WalkingOn grass");
+            hasStepPlayed = true;
+        }
+
     }
 
+    //Player is currently standing on the grass, Play or stop the sound based on isMoving.
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Dirt SFX")
+        
+        if (collision.tag == "Player" && PlayerBehaviour.isMoving == false && hasStepPlayed)
         {
-            // do something...
-            
+            audioSrc.Stop();
+            Debug.Log("Stop walking");
+            hasStepPlayed = false;
+        }
+        else if (collision.tag == "Player" && PlayerBehaviour.isMoving == true && !hasStepPlayed)
+        {
+            audioSrc.Play();
+            hasStepPlayed = true; 
+        }
+
+    }
+
+    //Player moves off the grass, stop playing the grass sounds. 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.tag == "Player")
+        {
+            audioSrc.Stop();
+            hasStepPlayed = false;
         }
     }
+
+
 }

@@ -57,4 +57,8 @@ public class MenuButtonsManager : MonoBehaviour
         SceneManager.LoadScene("Options");
     }
 
+    public void OnStartGameButtonPressed()
+    {
+        SceneManager.LoadScene("OverWorldScene");
+    }
 }

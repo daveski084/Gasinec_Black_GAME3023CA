@@ -41,12 +41,11 @@ public enum BattleState
 public enum BattleObjectCase
 {
     DUMMY,
-    ENEMYTYPE1,
-    ENEMYTYPE2,
-    ENEMYTYPE3,
-    ENEMYTYPE4,
-    ENEMYTYPE5,
-    BOSS
+    WEEKLYEXERCISES,
+    WEEKLYQUIZZES,
+    MIDTERM,
+    CULMINATINGASSIGNMENT,
+    FINALEXAM
 }
 
 public class BattleSystem : MonoBehaviour
