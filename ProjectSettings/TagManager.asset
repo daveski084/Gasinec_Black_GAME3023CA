@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ground (dirt) SFX
+  - Grass SFX
+  - Stone SFX
+  - Dirt SFX
   layers:
   - Default
   - TransparentFX
