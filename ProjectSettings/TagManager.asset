@@ -8,6 +8,7 @@ TagManager:
   - Stone SFX
   - Dirt SFX
   - Grass
+  - collisionB
   layers:
   - Default
   - TransparentFX

@@ -1,9 +1,9 @@
 /***********************************************************************;
 * Project            : Untiled
 *
-* Author             : David Gasinec, 
+* Author             : David Gasinec, Harrison Black
 * 
-* Student Number     : 101187910
+* Student Number     : 101187910, 
 *
 * Date created       : 21/11/2
 *
@@ -45,12 +45,19 @@ public class PlayerBehaviour : MonoBehaviour
         float playerInputY = Input.GetAxisRaw("Vertical");
         Vector2 direction = Vector2.zero;
 
+
        
-        if(playerInputX > 0)  //right
+        if (playerInputX == 0 && playerInputY == 0) // Idle
+        {
+            isMoving = false;
+            playerAnimator.SetInteger("playerAnimationState", 0);
+        }
+        else if (playerInputX > 0)  //right
         {
             isMoving = true;
             direction.x = 1;
-            playerAnimator.SetInteger("playerAnimationState", 3);
+            playerAnimator.SetInteger("playerAnimationState", 3); 
+
         }
         else if (playerInputX < 0)  //left
         {
@@ -70,12 +77,14 @@ public class PlayerBehaviour : MonoBehaviour
             direction.y = -1;
             playerAnimator.SetInteger("playerAnimationState", 1);
         }
-        else if (playerInputX == 0 && playerInputY == 0)
+        
+        if (Input.GetKeyDown("escape"))
         {
-            isMoving = false; 
-            playerAnimator.SetInteger("playerAnimationState", 0);
+            Application.Quit();
         }
-
+       
+      
+        // Move the player.
         transform.Translate(direction * playerSpeed * Time.deltaTime, Space.World); 
         
     }

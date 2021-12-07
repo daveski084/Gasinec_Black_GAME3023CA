@@ -24,17 +24,11 @@ using UnityEngine;
 
 public class TerrainDetector : MonoBehaviour
 {
-
-    //Audio
-    Rigidbody2D rb;
     AudioSource audioSrc;
-
-
     bool hasStepPlayed;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         audioSrc = GetComponent<AudioSource>();
         hasStepPlayed = false;
     }
@@ -46,7 +40,6 @@ public class TerrainDetector : MonoBehaviour
         if (collision.tag == "Player" && PlayerBehaviour.isMoving == true)
         {
             audioSrc.Play();
-            print("WalkingOn grass");
             hasStepPlayed = true;
         }
 
@@ -59,7 +52,6 @@ public class TerrainDetector : MonoBehaviour
         if (collision.tag == "Player" && PlayerBehaviour.isMoving == false && hasStepPlayed)
         {
             audioSrc.Stop();
-            Debug.Log("Stop walking");
             hasStepPlayed = false;
         }
         else if (collision.tag == "Player" && PlayerBehaviour.isMoving == true && !hasStepPlayed)
@@ -80,5 +72,13 @@ public class TerrainDetector : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "collisionB")
+        {
+            audioSrc.Play();
+            print("collision!");
+        }
+    }
 
 }
