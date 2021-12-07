@@ -9,6 +9,7 @@ TagManager:
   - Dirt SFX
   - Grass
   - collisionB
+  - TallGrass
   layers:
   - Default
   - TransparentFX

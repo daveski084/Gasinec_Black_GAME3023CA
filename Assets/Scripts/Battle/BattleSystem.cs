@@ -61,7 +61,9 @@ public class BattleSystem : MonoBehaviour
     public Text dialogueText;
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
-    
+
+    private bool isPlayerDead;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -120,7 +122,7 @@ public class BattleSystem : MonoBehaviour
         // Actions towards enenmy (damage, paralize, sleep etc).
 
         bool isDead = enemyBO.TakeDamage(playerBO.damage);
-        
+
         //Update Enemy HUD.
         enemyHUD.UpdateHP(enemyBO.currHP);
         dialogueText.text = "The attack landed!"; 
@@ -155,16 +157,18 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyBO.objName + "Attacks!";
-
-
-        yield return new WaitForSeconds(1.0f);
-
-        // Update player HUD 
-        bool isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
-        playerHUD.UpdateHP(enemyBO.damage);
-
-        //Debug.Log(enemyBO.currHP);
+        if (enemyBO.currHP < (enemyBO.maxHP / 2)) // Enemy heals if there is less than half of health. 
+        {
+            dialogueText.text = enemyBO.objName + " has healed a little bit.";
+            enemyBO.Heal(enemyBO.healAmount);
+            enemyHUD.UpdateHP(enemyBO.currHP);
+        }
+        else
+        {
+            dialogueText.text = enemyBO.objName + "Attacks!";
+            isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
+            playerHUD.UpdateHP(enemyBO.damage);
+        }
 
         yield return new WaitForSeconds(1.0f);
 
@@ -173,27 +177,12 @@ public class BattleSystem : MonoBehaviour
             currState = BattleState.LOST;
             EndBattle();
         }
-        else if (enemyBO.currHP < (enemyBO.maxHP / 2)) // Enemy heals if there is less than half of health. 
-        {
-            EnemyHeal();
-            currState = BattleState.PLAYERTURN;
-            enemyBO.currHP += 10;
-            yield return new WaitForSeconds(2.0f);
-            PlayerTurn();
-        }
         else
         {
             currState = BattleState.PLAYERTURN;
             PlayerTurn();
         }
     }
-
-    void EnemyHeal()
-    {
-        dialogueText.text = enemyBO.objName + " has healed a little but.";
-    }
-
-
 
     // Ability button logic:
     public void OnAttackButtonPressed()

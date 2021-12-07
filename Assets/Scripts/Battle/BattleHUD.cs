@@ -28,6 +28,7 @@ public class BattleHUD : MonoBehaviour
     public Text nameText;
     public Text levelText;
     public Slider hpBar;
+    public float healSpeed;
 
     public void SetHUD(BattleObject obj)
     {
