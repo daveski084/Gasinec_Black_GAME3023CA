@@ -44,9 +44,19 @@ public class PlayerBehaviour : MonoBehaviour
         float playerInputX = Input.GetAxisRaw("Horizontal");
         float playerInputY = Input.GetAxisRaw("Vertical");
         Vector2 direction = Vector2.zero;
+
         playerAnimator.SetFloat("Horizontal", playerInputX);
         playerAnimator.SetFloat("Vertical", playerInputY);
 
+
+        if (playerInputX == 0 && playerInputY == 0) // Idle
+        {
+            isMoving = false;
+        }
+        else
+        {
+            isMoving = true;
+        }
 
         //if (playerInputX == 0 && playerInputY == 0) // Idle
         //{
@@ -57,7 +67,7 @@ public class PlayerBehaviour : MonoBehaviour
         //{
         //    isMoving = true;
         //    direction.x = 1;
-        //    playerAnimator.SetInteger("playerAnimationState", 3); 
+        //    playerAnimator.SetInteger("playerAnimationState", 3);
 
         //}
         //else if (playerInputX < 0)  //left
@@ -78,7 +88,7 @@ public class PlayerBehaviour : MonoBehaviour
         //    direction.y = -1;
         //    playerAnimator.SetInteger("playerAnimationState", 1);
         //}
-        
+
         if (Input.GetKeyDown("escape"))
         {
             Application.Quit();
