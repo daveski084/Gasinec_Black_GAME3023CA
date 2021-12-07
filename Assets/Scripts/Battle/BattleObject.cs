@@ -29,6 +29,7 @@ public class BattleObject : MonoBehaviour
     public int damage;
     public int maxHP;
     public int currHP;
+    public int healAmount;
     
 
 
@@ -36,8 +37,7 @@ public class BattleObject : MonoBehaviour
     public bool TakeDamage(int damage)
     {
         currHP -= damage;
-
-        if( currHP <= 0)
+        if ( currHP <= 0)
         {
             return true;
         }
@@ -50,11 +50,9 @@ public class BattleObject : MonoBehaviour
     public void Heal(int amount)
     {
         currHP += amount;
-        if(currHP > maxHP)
+        if (currHP > maxHP)
         {
             currHP = maxHP;
         }
-
-
     }
 }
