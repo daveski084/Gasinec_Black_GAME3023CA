@@ -44,39 +44,40 @@ public class PlayerBehaviour : MonoBehaviour
         float playerInputX = Input.GetAxisRaw("Horizontal");
         float playerInputY = Input.GetAxisRaw("Vertical");
         Vector2 direction = Vector2.zero;
+        playerAnimator.SetFloat("Horizontal", playerInputX);
+        playerAnimator.SetFloat("Vertical", playerInputY);
 
 
-       
-        if (playerInputX == 0 && playerInputY == 0) // Idle
-        {
-            isMoving = false;
-            playerAnimator.SetInteger("playerAnimationState", 0);
-        }
-        else if (playerInputX > 0)  //right
-        {
-            isMoving = true;
-            direction.x = 1;
-            playerAnimator.SetInteger("playerAnimationState", 3); 
+        //if (playerInputX == 0 && playerInputY == 0) // Idle
+        //{
+        //    isMoving = false;
+        //    playerAnimator.SetInteger("playerAnimationState", 0);
+        //}
+        //else if (playerInputX > 0)  //right
+        //{
+        //    isMoving = true;
+        //    direction.x = 1;
+        //    playerAnimator.SetInteger("playerAnimationState", 3); 
 
-        }
-        else if (playerInputX < 0)  //left
-        {
-            isMoving = true;
-            direction.x = -1;
-            playerAnimator.SetInteger("playerAnimationState", 4);
-        }
-        else if (playerInputY > 0) // up
-        {
-            isMoving = true;
-            direction.y = 1;
-            playerAnimator.SetInteger("playerAnimationState", 2);
-        }
-        else if (playerInputY < 0) //down 
-        {
-            isMoving = true;
-            direction.y = -1;
-            playerAnimator.SetInteger("playerAnimationState", 1);
-        }
+        //}
+        //else if (playerInputX < 0)  //left
+        //{
+        //    isMoving = true;
+        //    direction.x = -1;
+        //    playerAnimator.SetInteger("playerAnimationState", 4);
+        //}
+        //else if (playerInputY > 0) // up
+        //{
+        //    isMoving = true;
+        //    direction.y = 1;
+        //    playerAnimator.SetInteger("playerAnimationState", 2);
+        //}
+        //else if (playerInputY < 0) //down 
+        //{
+        //    isMoving = true;
+        //    direction.y = -1;
+        //    playerAnimator.SetInteger("playerAnimationState", 1);
+        //}
         
         if (Input.GetKeyDown("escape"))
         {
@@ -85,7 +86,7 @@ public class PlayerBehaviour : MonoBehaviour
        
       
         // Move the player.
-        transform.Translate(direction * playerSpeed * Time.deltaTime, Space.World); 
+        transform.Translate(new Vector3(playerInputX, playerInputY, 0) * playerSpeed * Time.deltaTime, Space.World); 
         
     }
 }
