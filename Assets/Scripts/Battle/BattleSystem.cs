@@ -23,6 +23,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 // TODO: Nov 29, left of owrking on the HP bar. 
@@ -129,7 +130,6 @@ public class BattleSystem : MonoBehaviour
         if (currState == BattleState.WON)
         {
             dialogueText.text = "You Won!";
-            //
         }
         else if (currState == BattleState.LOST)
         {

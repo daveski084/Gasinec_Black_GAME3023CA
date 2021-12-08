@@ -35,6 +35,7 @@ public class PlayerBehaviour : MonoBehaviour
     public int chance;
     public float transitionSpeed;
 
+
     void Update()
     {
         // Varibles to hold our movement data.
@@ -77,6 +78,9 @@ public class PlayerBehaviour : MonoBehaviour
     IEnumerator LoadBattle()
     {
         transitionAnim.SetTrigger("Start");
+        //PlayerPrefs.SetFloat("preBattleX", transform.position.x);
+        //PlayerPrefs.SetFloat("preBattleY", transform.position.y);
+        //PlayerPrefs.SetFloat("preBattleZ", transform.position.z);
         yield return new WaitForSeconds(transitionSpeed);
         SceneManager.LoadScene("BattleScene");
     }
