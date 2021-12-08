@@ -36,6 +36,7 @@ public class BattleObject : MonoBehaviour
     
     public bool TakeDamage(int damage)
     {
+        Debug.Log("hit");
         currHP -= damage;
         if ( currHP <= 0)
         {

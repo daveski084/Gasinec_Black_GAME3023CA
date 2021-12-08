@@ -133,10 +133,12 @@ public class BattleSystem : MonoBehaviour
         if (currState == BattleState.WON)
         {
             dialogueText.text = "You Won!";
+            enemyAnim.Play("DeathAnim");
         }
         else if (currState == BattleState.LOST)
         {
             dialogueText.text = "You have lost.";
+            playerAnim.Play("DeathAnim");
             //load last save
         }
     }
@@ -164,7 +166,6 @@ public class BattleSystem : MonoBehaviour
         // Is the player alive still?
         if(isDead)
         {
-            enemyAnim.Play("DeathAnim");
             currState = BattleState.WON;
             EndBattle();
         }
@@ -208,14 +209,13 @@ public class BattleSystem : MonoBehaviour
             playerAnim.Play("DamagedAnim");
             dialogueText.text = enemyBO.objName + "Attacks!";
             isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
-            playerHUD.UpdateHP(enemyBO.damage);
+            playerHUD.UpdateHP(playerBO.currHP);
         }
 
         yield return new WaitForSeconds(1.0f);
 
         if (isPlayerDead)
         {
-            playerAnim.Play("DeathAnim");
             currState = BattleState.LOST;
             EndBattle();
         }
