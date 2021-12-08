@@ -69,6 +69,7 @@ public class BattleSystem : MonoBehaviour
     private int whichEnemy;
     private GameObject enemyGameObject;
     private bool isPlayerDead;
+    private Animator playerAnim, enemyAnim;
 
     // Start is called before the first frame update
     void Start()
@@ -89,6 +90,7 @@ public class BattleSystem : MonoBehaviour
         //TODO: Switch statement to determine which battle object to load in.
 
         GameObject playerGameObject = Instantiate(playerPrefab, playerBattleLocation);
+        playerAnim = playerGameObject.GetComponent<Animator>();
         playerBO = playerGameObject.GetComponent<BattleObject>();
 
         switch (whichEnemy)
@@ -109,6 +111,7 @@ public class BattleSystem : MonoBehaviour
                 enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);//enemyPrefab5
                 break;
         }
+        enemyAnim = enemyGameObject.GetComponent<Animator>();
         enemyBO = enemyGameObject.GetComponent<BattleObject>();
 
         
@@ -152,6 +155,7 @@ public class BattleSystem : MonoBehaviour
         bool isDead = enemyBO.TakeDamage(playerBO.damage);
         HideActions();
         //Update Enemy HUD.
+        enemyAnim.Play("DamagedAnim");
         enemyHUD.UpdateHP(enemyBO.currHP);
         dialogueText.text = "The attack landed!"; 
 
@@ -160,6 +164,7 @@ public class BattleSystem : MonoBehaviour
         // Is the player alive still?
         if(isDead)
         {
+            enemyAnim.Play("DeathAnim");
             currState = BattleState.WON;
             EndBattle();
         }
@@ -200,6 +205,7 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = enemyBO.objName + " prepares.";
             yield return new WaitForSeconds(2.0f);
+            playerAnim.Play("DamagedAnim");
             dialogueText.text = enemyBO.objName + "Attacks!";
             isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
             playerHUD.UpdateHP(enemyBO.damage);
@@ -209,6 +215,7 @@ public class BattleSystem : MonoBehaviour
 
         if (isPlayerDead)
         {
+            playerAnim.Play("DeathAnim");
             currState = BattleState.LOST;
             EndBattle();
         }

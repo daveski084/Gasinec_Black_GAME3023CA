@@ -87,7 +87,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.gameObject.tag == "TallGrass")
+        if (col.gameObject.tag == "TallGrass" && isMoving)
         {
             RollForEncounter();
         }
