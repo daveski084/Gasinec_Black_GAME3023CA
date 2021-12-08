@@ -51,7 +51,7 @@ public enum BattleObjectCase
 public class BattleSystem : MonoBehaviour
 {
     public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject enemyPrefab, enemyPrefab2, enemyPrefab3, enemyPrefab4, enemyPrefab5;
     public Transform playerBattleLocation;
     public Transform enemyBattleLocation; 
 
@@ -62,11 +62,22 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
 
+    public GameObject abilityOne;
+    public GameObject abilityTwo;
+    public GameObject abilityThree;
+    public GameObject abilityFour;
+    private int whichEnemy;
+
+    private GameObject enemyGameObject;
+
     private bool isPlayerDead;
 
     // Start is called before the first frame update
     void Start()
     {
+        whichEnemy = Random.Range(1, 6);
+        Debug.Log(whichEnemy);
+        HideActions();
         currState = BattleState.START;
         StartCoroutine(SetUpBattle());
     }
@@ -82,7 +93,24 @@ public class BattleSystem : MonoBehaviour
         GameObject playerGameObject = Instantiate(playerPrefab, playerBattleLocation);
         playerBO = playerGameObject.GetComponent<BattleObject>();
 
-        GameObject enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);
+        switch (whichEnemy)
+        {
+            case 1:
+                enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);
+                break;
+            case 2:
+                enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);//enemyPrefab2
+                break;
+            case 3:
+                enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);//enemyPrefab3
+                break;
+            case 4:
+                enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);//enemyPrefab4
+                break;
+            case 5:
+                enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);//enemyPrefab5
+                break;
+        }
         enemyBO = enemyGameObject.GetComponent<BattleObject>();
 
         
@@ -104,15 +132,18 @@ public class BattleSystem : MonoBehaviour
         if (currState == BattleState.WON)
         {
             dialogueText.text = "You Won!";
+            //
         }
         else if (currState == BattleState.LOST)
         {
             dialogueText.text = "You have lost.";
+            //load last save
         }
     }
     //2. Waits for the user to choose an action. At the time of this writing the player can only Attack and Heal. 
     void PlayerTurn()
     {
+        ShowActions();
         dialogueText.text = "Choose an action: "; 
     }
 
@@ -122,7 +153,7 @@ public class BattleSystem : MonoBehaviour
         // Actions towards enenmy (damage, paralize, sleep etc).
 
         bool isDead = enemyBO.TakeDamage(playerBO.damage);
-
+        HideActions();
         //Update Enemy HUD.
         enemyHUD.UpdateHP(enemyBO.currHP);
         dialogueText.text = "The attack landed!"; 
@@ -146,6 +177,7 @@ public class BattleSystem : MonoBehaviour
     // TODO: Change this to the item system. 
     IEnumerator PlayerHeal()
     {
+        HideActions();
         playerBO.Heal(5);
         playerHUD.UpdateHP(playerBO.currHP);
         dialogueText.text = "You healed yourself!";
@@ -202,5 +234,25 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(PlayerHeal());
     }
 
-    
+    private void HideActions()
+    {
+        abilityOne.SetActive(false);
+        abilityTwo.SetActive(false);
+        abilityThree.SetActive(false);
+        abilityFour.SetActive(false);
+    }
+    private void ShowActions()
+    {
+        abilityOne.SetActive(true);
+
+        //check script where playerprefs save loaded these bools into
+
+        //if(hasAbilityTwo)
+            abilityTwo.SetActive(true);
+        //if (hasAbilityThree)
+            abilityThree.SetActive(true);
+       // if (hasAbilityFour)
+            abilityFour.SetActive(true);
+    }
+
 }

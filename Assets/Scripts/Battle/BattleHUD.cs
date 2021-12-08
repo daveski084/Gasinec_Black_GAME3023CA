@@ -30,6 +30,7 @@ public class BattleHUD : MonoBehaviour
     public Slider hpBar;
     public float healSpeed;
 
+
     public void SetHUD(BattleObject obj)
     {
         nameText.text = obj.objName;
