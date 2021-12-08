@@ -74,9 +74,18 @@ public class TerrainDetector : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "collisionB")
+        if(collision.gameObject.tag == "Bounce")
         {
             audioSrc.Play();
+            print("collision!");
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Bounce")
+        {
+            audioSrc.Stop();
             print("collision!");
         }
     }
