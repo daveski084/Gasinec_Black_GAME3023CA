@@ -51,6 +51,13 @@ public enum BattleObjectCase
 
 public class BattleSystem : MonoBehaviour
 {
+    public AudioClip enemyMove1;
+    //public AudioClip a4SFX
+    //public AudioClip a3SFX
+    public AudioClip attackSFX;
+    public AudioClip healSFX;
+    public AudioSource audSrc;
+
     public GameObject playerPrefab;
     public GameObject enemyPrefab, enemyPrefab2, enemyPrefab3, enemyPrefab4, enemyPrefab5;
     public Transform playerBattleLocation;
@@ -71,9 +78,11 @@ public class BattleSystem : MonoBehaviour
     private bool isPlayerDead;
     private Animator playerAnim, enemyAnim;
 
+
     // Start is called before the first frame update
     void Start()
     {
+        audSrc = GetComponent<AudioSource>();
         whichEnemy = Random.Range(1, 6);
         Debug.Log(whichEnemy);
         HideActions();
@@ -159,7 +168,8 @@ public class BattleSystem : MonoBehaviour
         //Update Enemy HUD.
         enemyAnim.Play("DamagedAnim");
         enemyHUD.UpdateHP(enemyBO.currHP);
-        dialogueText.text = "The attack landed!"; 
+        dialogueText.text = "The attack landed!";
+        audSrc.PlayOneShot(attackSFX); 
 
         yield return new WaitForSeconds(2f);
 
@@ -185,6 +195,8 @@ public class BattleSystem : MonoBehaviour
         playerBO.Heal(5);
         playerHUD.UpdateHP(playerBO.currHP);
         dialogueText.text = "You healed yourself!";
+        audSrc.PlayOneShot(healSFX);
+
 
         yield return new WaitForSeconds(2.0f);
         currState = BattleState.ENEMYTURN;
@@ -210,6 +222,7 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = enemyBO.objName + "Attacks!";
             isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
             playerHUD.UpdateHP(playerBO.currHP);
+            audSrc.PlayOneShot(enemyMove1); 
         }
 
         yield return new WaitForSeconds(1.0f);
