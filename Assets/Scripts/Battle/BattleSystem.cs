@@ -189,6 +189,8 @@ public class BattleSystem : MonoBehaviour
     {
         if (enemyBO.currHP < (enemyBO.maxHP / 2)) // Enemy heals if there is less than half of health. 
         {
+            dialogueText.text = enemyBO.objName + " is looking hurt...";
+            yield return new WaitForSeconds(2.0f);
             enemyParticle.Play();
             dialogueText.text = enemyBO.objName + " has healed a little bit.";
             enemyBO.Heal(enemyBO.healAmount);
@@ -196,6 +198,8 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
+            dialogueText.text = enemyBO.objName + " prepares.";
+            yield return new WaitForSeconds(2.0f);
             dialogueText.text = enemyBO.objName + "Attacks!";
             isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
             playerHUD.UpdateHP(enemyBO.damage);
