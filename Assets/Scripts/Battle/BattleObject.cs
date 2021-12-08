@@ -30,12 +30,17 @@ public class BattleObject : MonoBehaviour
     public int maxHP;
     public int currHP;
     public int healAmount;
-    
+
+    public int escapeChance;
+    public int StruggleChance;
 
 
-    
+
+
+
     public bool TakeDamage(int damage)
     {
+        Debug.Log("hit");
         currHP -= damage;
         if ( currHP <= 0)
         {
@@ -53,6 +58,27 @@ public class BattleObject : MonoBehaviour
         if (currHP > maxHP)
         {
             currHP = maxHP;
+        }
+    }
+
+    public void ProblemSolve()
+    {
+        //reduce damage
+    }
+    public void Struggle()
+    {
+        int randomNumber = Random.Range(1, 101);
+        if (randomNumber <= StruggleChance)
+        {
+            //instant win
+        }
+    }
+    public void Escape()
+    {
+        int randomNumber = Random.Range(1, 101);
+        if (randomNumber <= escapeChance)
+        {
+            //ran away
         }
     }
 }
