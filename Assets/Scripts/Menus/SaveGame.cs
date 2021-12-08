@@ -30,6 +30,9 @@ public class SaveGame : MonoBehaviour
         PlayerPrefs.SetFloat("Yposition", playerY);
         PlayerPrefs.SetFloat("Zposition", playerZ); 
 
+        //TODO: Save abilities. 
+       
+
         PlayerPrefs.Save();
         print("Game Saved.");
     }
@@ -42,6 +45,11 @@ public class SaveGame : MonoBehaviour
 
         Vector3 loadPlacement = new Vector3(playerX, playerY, playerZ);
         playerCharacter.transform.position = loadPlacement;
+    }
+
+    public void LoadAbilities()
+    {
+
     }
 
 }

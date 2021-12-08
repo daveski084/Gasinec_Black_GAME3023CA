@@ -51,6 +51,8 @@ MonoBehaviour:
   maxHP: 30
   currHP: 30
   healAmount: 1
+  escapeChance: 0
+  StruggleChance: 0
 --- !u!95 &5615023127202938749
 Animator:
   serializedVersion: 3
@@ -165,9 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f353d73a64fb4439fdb71acd03b846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objName: Dummy
+  objName: Weekly Excercises
   objLevel: 2
   damage: 5
   maxHP: 30
   currHP: 30
   healAmount: 0
+  escapeChance: 0
+  StruggleChance: 0

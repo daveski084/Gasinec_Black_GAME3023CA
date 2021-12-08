@@ -26,7 +26,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-// TODO:
+// 
 
 // Essientially a state machine without the machine part :*)
 public enum BattleState
@@ -56,7 +56,7 @@ public class BattleSystem : MonoBehaviour
     public Transform playerBattleLocation;
     public Transform enemyBattleLocation; 
 
-    public BattleState currState;
+    public static BattleState currState;
     BattleObject playerBO;
     BattleObject enemyBO;
     public Text dialogueText;
