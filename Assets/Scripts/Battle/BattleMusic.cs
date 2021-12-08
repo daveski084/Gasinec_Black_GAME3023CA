@@ -11,7 +11,7 @@ public class BattleMusic : MonoBehaviour
     void Start()
     {
        audioSrc = GetComponent<AudioSource>();
-        audioSrc.Play(); 
+       audioSrc.Play(); 
     }
 
     // Update is called once per frame
@@ -19,8 +19,14 @@ public class BattleMusic : MonoBehaviour
     {
         if(BattleSystem.currState == BattleState.LOST || BattleSystem.currState == BattleState.WON)
         {
-            audioSrc.Stop();
+            StartCoroutine(StopMusic()); 
         }
        
+    }
+
+    IEnumerator StopMusic()
+    {
+        yield return new WaitForSeconds(2f);
+        audioSrc.Stop();
     }
 }

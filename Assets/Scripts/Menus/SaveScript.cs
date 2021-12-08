@@ -16,5 +16,7 @@ public class SaveScript : MonoBehaviour
         PlayerPrefs.GetFloat("preBattleX", transform.position.x);
         PlayerPrefs.GetFloat("preBattleY", transform.position.y);
         PlayerPrefs.GetFloat("preBattleZ", transform.position.z);
+
+
     }
 }

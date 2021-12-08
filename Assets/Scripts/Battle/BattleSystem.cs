@@ -143,6 +143,7 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "You Won!";
             enemyAnim.Play("DeathAnim");
+           //TODO: Save currHealth and set currhealth to this value when reloading the overworld. 
         }
         else if (currState == BattleState.LOST)
         {
@@ -255,6 +256,18 @@ public class BattleSystem : MonoBehaviour
     {
         // Heal the player.
         StartCoroutine(PlayerHeal());
+    }
+
+    public void OnStrugglePressed()
+    {
+        // struggle
+        // StartCoroutine(Struggle());
+    }
+
+    public void OnUnityExperiencePressed()
+    {
+        // You used your unity experiance and defaeted the culminating assignment!
+       // StartCoroutine(UnityExp());
     }
 
     private void HideActions()

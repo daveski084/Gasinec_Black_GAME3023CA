@@ -48,9 +48,11 @@ MonoBehaviour:
   objName: The Player
   objLevel: 99
   damage: 10
-  maxHP: 25
-  currHP: 20
+  maxHP: 90
+  currHP: 90
   healAmount: 5
+  escapeChance: 0
+  StruggleChance: 0
 --- !u!95 &8686920022763787934
 Animator:
   serializedVersion: 3

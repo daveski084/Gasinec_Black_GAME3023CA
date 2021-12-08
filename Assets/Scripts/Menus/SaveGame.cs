@@ -11,6 +11,7 @@ public class SaveGame : MonoBehaviour
     private void Awake()
     {
         LoadLocation(); 
+        // LoadAbilities(); 
     }
 
     private void Start()
