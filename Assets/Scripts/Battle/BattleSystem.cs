@@ -260,9 +260,9 @@ public class BattleSystem : MonoBehaviour
         //if(hasAbilityTwo)
             abilityTwo.SetActive(true);
         //if (hasAbilityThree)
-            abilityThree.SetActive(true);
-       // if (hasAbilityFour)
-            abilityFour.SetActive(true);
+       //     abilityThree.SetActive(true);
+       //// if (hasAbilityFour)
+       //     abilityFour.SetActive(true);
     }
 
 }
