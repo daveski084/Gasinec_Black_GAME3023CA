@@ -62,14 +62,11 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
 
-    public GameObject abilityOne;
-    public GameObject abilityTwo;
-    public GameObject abilityThree;
-    public GameObject abilityFour;
+    public GameObject abilityOne, abilityTwo, abilityThree, abilityFour;
+    public ParticleSystem playerParticle, enemyParticle;
+    
     private int whichEnemy;
-
     private GameObject enemyGameObject;
-
     private bool isPlayerDead;
 
     // Start is called before the first frame update
@@ -178,6 +175,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator PlayerHeal()
     {
         HideActions();
+        playerParticle.Play();
         playerBO.Heal(5);
         playerHUD.UpdateHP(playerBO.currHP);
         dialogueText.text = "You healed yourself!";
@@ -191,6 +189,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (enemyBO.currHP < (enemyBO.maxHP / 2)) // Enemy heals if there is less than half of health. 
         {
+            enemyParticle.Play();
             dialogueText.text = enemyBO.objName + " has healed a little bit.";
             enemyBO.Heal(enemyBO.healAmount);
             enemyHUD.UpdateHP(enemyBO.currHP);
