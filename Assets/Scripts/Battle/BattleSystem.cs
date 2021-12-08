@@ -1,7 +1,7 @@
 /***********************************************************************;
 * Project            : Untiled
 *
-* Author             : David Gasinec, 
+* Author             : David Gasinec, Harrison Black
 * 
 * Student Number     : 101187910
 *
@@ -26,7 +26,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-// TODO: Nov 29, left of owrking on the HP bar. 
+// TODO:
 
 // Essientially a state machine without the machine part :*)
 public enum BattleState

@@ -62,6 +62,11 @@ public class MenuButtonsManager : MonoBehaviour
         SceneManager.LoadScene("OverWorldScene");
     }
 
+    public void OnSaveButtonPressed()
+    {
+
+    }
+
     public void OnQuitButtonPressed()
     {
         Application.Quit();

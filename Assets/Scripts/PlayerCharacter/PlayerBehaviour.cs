@@ -27,6 +27,7 @@ using UnityEngine.SceneManagement;
 public class PlayerBehaviour : MonoBehaviour
 {
     public static bool isMoving;
+    public static int ability1, ability2, ability3, ability4;
 
     public float playerSpeed = 1.0f;
     public Animator playerAnimator;
@@ -35,6 +36,14 @@ public class PlayerBehaviour : MonoBehaviour
     public int chance;
     public float transitionSpeed;
 
+
+    private void Start()
+    {
+        ability1 = 1;
+        ability2 = 2;
+        ability3 = 3;
+        ability4 = 4; 
+    }
 
     void Update()
     {
