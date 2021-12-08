@@ -26,17 +26,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtonsManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    //void Start()
-    //{
-        
-    //}
 
-    // Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
 
     public void OnStartButtonPressed()
     {
@@ -62,10 +52,6 @@ public class MenuButtonsManager : MonoBehaviour
         SceneManager.LoadScene("OverWorldScene");
     }
 
-    public void OnSaveButtonPressed()
-    {
-
-    }
 
     public void OnQuitButtonPressed()
     {

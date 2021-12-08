@@ -196,6 +196,9 @@ MonoBehaviour:
   damage: 0
   maxHP: 0
   currHP: 0
+  healAmount: 0
+  escapeChance: 0
+  StruggleChance: 0
 --- !u!114 &8061140216567796569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +213,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 1
   playerAnimator: {fileID: 0}
+  transitionAnim: {fileID: 0}
+  chance: 0
+  transitionSpeed: 0
 --- !u!70 &7730274753816726669
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

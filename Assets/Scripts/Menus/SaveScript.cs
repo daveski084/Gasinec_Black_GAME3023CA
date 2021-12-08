@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SaveScript : MonoBehaviour
 {
+
     public void EnterBattleSave()
     {
         PlayerPrefs.SetFloat("preBattleX", transform.position.x);
