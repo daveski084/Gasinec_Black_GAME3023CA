@@ -10,6 +10,7 @@ TagManager:
   - Grass
   - collisionB
   - Bounce
+  - TallGrass
   layers:
   - Default
   - TransparentFX

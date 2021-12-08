@@ -49,6 +49,7 @@ MonoBehaviour:
   damage: 10
   maxHP: 25
   currHP: 20
+  healAmount: 5
 --- !u!1 &8699206787932226775
 GameObject:
   m_ObjectHideFlags: 0
