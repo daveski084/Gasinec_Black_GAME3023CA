@@ -13,6 +13,8 @@ TagManager:
   - TallGrass
   - Enemy1Grass
   - Enemy2Grass
+  - Enemy3Grass
+  - Enemy4Grass
   layers:
   - Default
   - TransparentFX

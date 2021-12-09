@@ -122,13 +122,15 @@ public class BattleSystem : MonoBehaviour
                 break;
             case 3:
                 enemyGameObject = Instantiate(enemyPrefab3, enemyBattleLocation);//enemyPrefab3
+                ftWkyExercises = true; 
                 break;
             case 4:
                 enemyGameObject = Instantiate(enemyPrefab4, enemyBattleLocation);//enemyPrefab4
+                ftFinal = true; 
                 break;
-            case 5:
-                enemyGameObject = Instantiate(enemyPrefab5, enemyBattleLocation);//enemyPrefab5
-                break;
+            //case 5:
+            //    enemyGameObject = Instantiate(enemyPrefab5, enemyBattleLocation);//enemyPrefab5
+               // break;
         }
         enemyAnim = enemyGameObject.GetComponent<Animator>();
         enemyBO = enemyGameObject.GetComponent<BattleObject>();
@@ -163,6 +165,15 @@ public class BattleSystem : MonoBehaviour
             if(ftWkyQuiz == true)
             {
                 PlayerBehaviour.hasAbilityThree = true; 
+            }
+
+            if(ftWkyExercises == true)
+            {
+                PlayerBehaviour.hasAbilityFour = true; 
+            }
+            if(ftFinal == true)
+            {
+                SceneManager.LoadScene("EndScene"); 
             }
 
 
@@ -455,8 +466,8 @@ public class BattleSystem : MonoBehaviour
             abilityTwo.SetActive(true);
         if (PlayerBehaviour.hasAbilityThree)
            abilityThree.SetActive(true);
-       //// if (hasAbilityFour)
-       //     abilityFour.SetActive(true);
+        if (PlayerBehaviour.hasAbilityFour) 
+           abilityFour.SetActive(true);
     }
 
 }

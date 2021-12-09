@@ -42,7 +42,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float transitionSpeed;
     bool isGamePaused;
 
-    public int abilityTwo, abilityThree;
+    public int abilityTwo, abilityThree, abilityFour;
     public float playerX, playerY, playerZ;
     public int playerHealth;
     public GameObject playerCharacter;
@@ -182,6 +182,30 @@ public class PlayerBehaviour : MonoBehaviour
                 print("this spot is done"); 
             }
         }
+        if(col.gameObject.tag == "Enemy3Grass" && isMoving)
+        {
+            if(!hasAbilityFour)
+            {
+                RollForEncounter();
+                enemyGrass = 3;
+            }
+            else if (hasAbilityFour)
+            {
+                print("this spot is done"); 
+            }
+        }
+        if (col.gameObject.tag == "Enemy4Grass" && isMoving)
+        {
+            if(hasAbilityTwo && hasAbilityThree && hasAbilityFour)
+            {
+                RollForEncounter();
+                enemyGrass = 4; 
+            }
+            else
+            {
+                print("not yet!"); 
+            }
+        }
 
     }
 
@@ -218,10 +242,6 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerPrefs.SetFloat("Zposition", playerZ);
         PlayerPrefs.SetInt("PlayerHealth", playerHealth);
 
-        //TODO: Save abilities. 
-        PlayerPrefs.SetInt("AbilityTwo", abilityTwo);
-        PlayerPrefs.SetInt("AbilityThree", abilityThree);
-
 
 
         PlayerPrefs.Save();
@@ -240,20 +260,35 @@ public class PlayerBehaviour : MonoBehaviour
         {
             abilityThree = 1;
         }
+        if(hasAbilityFour)
+        {
+            abilityFour = 1; 
+        }
 
         //TODO: Save abilities. 
         PlayerPrefs.SetInt("AbilityTwo", abilityTwo);
         PlayerPrefs.SetInt("AbilityThree", abilityThree);
+        PlayerPrefs.SetInt("AbilityFour", abilityFour);
     }
 
     public void LoadAbilities()
     {
        
         abilityTwo = PlayerPrefs.GetInt("AbilityTwo");
+        abilityThree = PlayerPrefs.GetInt("AbilityThree");
+        abilityFour = PlayerPrefs.GetInt("AbilityFour");
 
-        if(abilityTwo == 1)
+        if (abilityTwo == 1)
         {
             hasAbilityTwo = true; 
+        }
+        if(abilityThree == 1)
+        {
+            hasAbilityThree = true;
+        }
+        if(abilityFour == 1)
+        {
+            hasAbilityFour = true; 
         }
         
     }
