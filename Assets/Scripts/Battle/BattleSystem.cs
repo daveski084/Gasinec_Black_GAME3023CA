@@ -51,6 +51,7 @@ public enum BattleObjectCase
 
 public class BattleSystem : MonoBehaviour
 {
+    public GameObject saveData;
     public AudioClip enemyMove1;
     //public AudioClip a4SFX
     //public AudioClip a3SFX
@@ -58,13 +59,17 @@ public class BattleSystem : MonoBehaviour
     public AudioClip healSFX;
     public AudioSource audSrc;
 
+
     public GameObject playerPrefab;
     public GameObject enemyPrefab, enemyPrefab2, enemyPrefab3, enemyPrefab4, enemyPrefab5, essanceObj;
     public Transform playerBattleLocation;
     public Transform enemyBattleLocation; 
 
     public static BattleState currState;
-    BattleObject playerBO;
+    public static bool enteringBattle, hasBattled;
+    public static bool exitingBattle;
+    public static bool ftWkyVideo, ftWkyQuiz, ftWkyExercises, ftMidterm, ftFinal;
+   public static BattleObject playerBO;
     BattleObject enemyBO;
     public Text dialogueText;
     public BattleHUD playerHUD;
@@ -106,6 +111,7 @@ public class BattleSystem : MonoBehaviour
         {
             case 1:
                 enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);
+                ftWkyVideo = true;
                 break;
             case 2:
                 enemyGameObject = Instantiate(enemyPrefab2, enemyBattleLocation);//enemyPrefab2
@@ -137,13 +143,14 @@ public class BattleSystem : MonoBehaviour
 
     void EndBattle()
     {
+        hasBattled = true;
         //TODO: User gains a new ability or is loaded into a previous state. 
         if (currState == BattleState.WON)
         {
             dialogueText.text = "You Won!";
             enemyAnim.Play("DeathAnim");
             StartCoroutine(GetAbility());
-            //TODO: Save currHealth and set currhealth to this value when reloading the overworld. 
+            
         }
         else if (currState == BattleState.LOST)
         {
@@ -156,7 +163,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator Respawn()
     {
         yield return new WaitForSeconds(2f);
-        //load last save
+        exitingBattle = true;
         GameObject.Find("Blocker").GetComponent<Animator>().SetTrigger("Start");
         yield return new WaitForSeconds(1.0f);
         SceneManager.LoadScene("OverWorldScene");

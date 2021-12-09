@@ -11,6 +11,7 @@ TagManager:
   - collisionB
   - Bounce
   - TallGrass
+  - Enemy1Grass
   layers:
   - Default
   - TransparentFX

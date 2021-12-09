@@ -26,9 +26,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    public GameObject saveData;
     public GameObject PauseMenu;
     public static bool isMoving;
+    public static bool hasBeatWeeklyEx, hasBeatWeeklyVid, hasBeatMidterm, hasBeatweeklyQuiz,
+                        hasBeatFinal;
     public static int ability1, ability2, ability3, ability4;
+    public static int enemyGrass;
 
     public float playerSpeed = 1.0f;
     public Animator playerAnimator;
@@ -38,13 +42,34 @@ public class PlayerBehaviour : MonoBehaviour
     public float transitionSpeed;
     bool isGamePaused;
 
+
+    public float playerX, playerY, playerZ;
+    public int playerHealth;
+    public GameObject playerCharacter;
+    public AudioSource audioSrc;
+
+
+    private void Awake()
+    {
+        //PlayerPrefs.DeleteAll();
+        if (BattleSystem.exitingBattle)
+        {
+            LoadLocation();
+        }
+        else
+            LoadLocation(); 
+        
+       // LoadAbilities(); 
+    }
+   
     private void Start()
     {
         PauseMenu.SetActive(false);
         ability1 = 1;
         ability2 = 2;
         ability3 = 3;
-        ability4 = 4; 
+        ability4 = 4;
+        audioSrc = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -56,6 +81,11 @@ public class PlayerBehaviour : MonoBehaviour
         playerAnimator.SetFloat("Horizontal", playerInputX);
         playerAnimator.SetFloat("Vertical", playerInputY);
 
+
+        if (BattleSystem.enteringBattle)
+        {
+            SaveLocation();
+        }
 
         if (playerInputX == 0 && playerInputY == 0) // Idle
         {
@@ -87,7 +117,7 @@ public class PlayerBehaviour : MonoBehaviour
            }
             //Application.Quit();
         }
-      
+
         
 
 
@@ -100,6 +130,7 @@ public class PlayerBehaviour : MonoBehaviour
         Debug.Log("touching");
         if (Random.Range(1, 100) < chance)
         {
+            SaveLocation();
             StartCoroutine(LoadBattle());
             Debug.Log("do battle");
         }
@@ -119,14 +150,16 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (col.gameObject.tag == "TallGrass" && isMoving)
         {
+            print("in tall grass");
             RollForEncounter();
         }
+
     }
 
     void ResumeGame()
     {
         PauseMenu.SetActive(false);
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         isGamePaused = false;
     }
 
@@ -136,4 +169,47 @@ public class PlayerBehaviour : MonoBehaviour
         Time.timeScale = 0;
         isGamePaused = true;
     }
+
+    public void SaveLocation()
+    {
+        audioSrc.Play();
+
+        playerX = playerCharacter.transform.position.x;
+        playerY = playerCharacter.transform.position.y;
+        playerZ = playerCharacter.transform.position.z;
+
+        if(BattleSystem.hasBattled == true)
+        {
+            playerHealth = BattleSystem.playerBO.currHP;
+        }
+
+
+        PlayerPrefs.SetFloat("Xposition", playerX);
+        PlayerPrefs.SetFloat("Yposition", playerY);
+        PlayerPrefs.SetFloat("Zposition", playerZ);
+        PlayerPrefs.SetInt("PlayerHealth", playerHealth);
+
+        //TODO: Save abilities. 
+
+
+        PlayerPrefs.Save();
+        print("Game Saved.");
+    }
+
+    public void LoadLocation()
+    {
+        playerX = PlayerPrefs.GetFloat("Xposition");
+        playerY = PlayerPrefs.GetFloat("Yposition");
+        playerZ = PlayerPrefs.GetFloat("Zposition");
+        playerHealth = PlayerPrefs.GetInt("PlayerHealth");
+
+       
+        Vector3 loadPlacement = new Vector3(playerX, playerY, playerZ);
+        playerCharacter.transform.position = loadPlacement;
+
+        if (BattleSystem.hasBattled == true)
+        BattleSystem.playerBO.currHP = playerHealth;
+    }
+
+
 }

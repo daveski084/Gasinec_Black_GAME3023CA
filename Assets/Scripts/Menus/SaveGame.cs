@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SaveGame : MonoBehaviour
 {
+    
     public float playerX, playerY, playerZ;
     public GameObject playerCharacter;
     public AudioSource audioSrc;
@@ -27,6 +28,8 @@ public class SaveGame : MonoBehaviour
         playerY = playerCharacter.transform.position.y;
         playerZ = playerCharacter.transform.position.z;
 
+       
+
         PlayerPrefs.SetFloat("Xposition", playerX);
         PlayerPrefs.SetFloat("Yposition", playerY);
         PlayerPrefs.SetFloat("Zposition", playerZ); 
@@ -48,12 +51,4 @@ public class SaveGame : MonoBehaviour
         playerCharacter.transform.position = loadPlacement;
     }
 
-    public void LoadAbilities()
-    {
-
-    }
-    public void EscapeGame()
-    {
-        
-    }
 }
