@@ -52,6 +52,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void Awake()
     {
         //PlayerPrefs.DeleteAll();
+
         if (BattleSystem.exitingBattle)
         {
             LoadLocation();
@@ -60,6 +61,7 @@ public class PlayerBehaviour : MonoBehaviour
         else
             
             LoadLocation();
+        LoadAbilities(); 
 
         // LoadAbilities(); 
     }
