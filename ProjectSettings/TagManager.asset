@@ -12,6 +12,7 @@ TagManager:
   - Bounce
   - TallGrass
   - Enemy1Grass
+  - Enemy2Grass
   layers:
   - Default
   - TransparentFX

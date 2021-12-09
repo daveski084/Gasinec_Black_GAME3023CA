@@ -31,7 +31,7 @@ public class PlayerBehaviour : MonoBehaviour
     public static bool isMoving;
     public static bool hasBeatWeeklyEx, hasBeatWeeklyVid, hasBeatMidterm, hasBeatweeklyQuiz,
                         hasBeatFinal;
-    public static int ability1, ability2, ability3, ability4;
+    public static bool  hasAbilityTwo, hasAbilityThree, hasAbilityFour;
     public static int enemyGrass;
 
     public float playerSpeed = 1.0f;
@@ -42,7 +42,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float transitionSpeed;
     bool isGamePaused;
 
-
+    public int abilityTwo, abilityThree;
     public float playerX, playerY, playerZ;
     public int playerHealth;
     public GameObject playerCharacter;
@@ -55,20 +55,18 @@ public class PlayerBehaviour : MonoBehaviour
         if (BattleSystem.exitingBattle)
         {
             LoadLocation();
+            LoadAbilities();
         }
         else
-            LoadLocation(); 
-        
-       // LoadAbilities(); 
+            
+            LoadLocation();
+
+        // LoadAbilities(); 
     }
    
     private void Start()
     {
         PauseMenu.SetActive(false);
-        ability1 = 1;
-        ability2 = 2;
-        ability3 = 3;
-        ability4 = 4;
         audioSrc = GetComponent<AudioSource>();
     }
 
@@ -82,9 +80,14 @@ public class PlayerBehaviour : MonoBehaviour
         playerAnimator.SetFloat("Vertical", playerInputY);
 
 
-        if (BattleSystem.enteringBattle)
+        //if (BattleSystem.enteringBattle)
+        //{
+        //    SaveLocation();
+        //}
+
+        if(BattleSystem.exitingBattle == true)
         {
-            SaveLocation();
+            SaveAbilities();
         }
 
         if (playerInputX == 0 && playerInputY == 0) // Idle
@@ -150,8 +153,32 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (col.gameObject.tag == "TallGrass" && isMoving)
         {
-            print("in tall grass");
-            RollForEncounter();
+           // RollForEncounter(); 
+        }
+        if(col.gameObject.tag == "Enemy1Grass" && isMoving)
+        {
+            if(!hasAbilityTwo)
+            {
+                RollForEncounter();
+                enemyGrass = 1;
+            }
+            else if (hasAbilityTwo)
+            {
+                print("this spot is done");
+            }
+             
+        }
+        if(col.gameObject.tag =="Enemy2Grass" && isMoving)
+        {
+            if(!hasAbilityThree)
+            {
+                RollForEncounter();
+                enemyGrass = 2;
+            }
+            else if (hasAbilityThree)
+            {
+                print("this spot is done"); 
+            }
         }
 
     }
@@ -190,10 +217,43 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerPrefs.SetInt("PlayerHealth", playerHealth);
 
         //TODO: Save abilities. 
+        PlayerPrefs.SetInt("AbilityTwo", abilityTwo);
+        PlayerPrefs.SetInt("AbilityThree", abilityThree);
+
 
 
         PlayerPrefs.Save();
         print("Game Saved.");
+    }
+
+
+    public void SaveAbilities()
+    {
+        print("Saving abilities"); 
+        if (hasAbilityTwo)
+        {
+            abilityTwo = 1;
+        }
+        if (hasAbilityThree)
+        {
+            abilityThree = 1;
+        }
+
+        //TODO: Save abilities. 
+        PlayerPrefs.SetInt("AbilityTwo", abilityTwo);
+        PlayerPrefs.SetInt("AbilityThree", abilityThree);
+    }
+
+    public void LoadAbilities()
+    {
+       
+        abilityTwo = PlayerPrefs.GetInt("AbilityTwo");
+
+        if(abilityTwo == 1)
+        {
+            hasAbilityTwo = true; 
+        }
+        
     }
 
     public void LoadLocation()
@@ -209,6 +269,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (BattleSystem.hasBattled == true)
         BattleSystem.playerBO.currHP = playerHealth;
+
+       
     }
 
 

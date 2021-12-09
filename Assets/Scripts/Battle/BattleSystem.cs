@@ -66,7 +66,7 @@ public class BattleSystem : MonoBehaviour
     public Transform enemyBattleLocation; 
 
     public static BattleState currState;
-    public static bool enteringBattle, hasBattled;
+    public static bool enteringBattle, hasBattled, hasBattledEnded;
     public static bool exitingBattle;
     public static bool ftWkyVideo, ftWkyQuiz, ftWkyExercises, ftMidterm, ftFinal;
    public static BattleObject playerBO;
@@ -89,18 +89,21 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         audSrc = GetComponent<AudioSource>();
-        whichEnemy = Random.Range(1, 5);
+        //whichEnemy = Random.Range(1, 5);
+        whichEnemy = PlayerBehaviour.enemyGrass;
         HideActions();
         currState = BattleState.START;
         StartCoroutine(SetUpBattle());
     }
 
+
+  
     // Set up as a coroutine 
 
     // 1.
     IEnumerator SetUpBattle()
     {
-
+        exitingBattle = false; 
         //TODO: Switch statement to determine which battle object to load in.
 
         GameObject playerGameObject = Instantiate(playerPrefab, playerBattleLocation);
@@ -115,6 +118,7 @@ public class BattleSystem : MonoBehaviour
                 break;
             case 2:
                 enemyGameObject = Instantiate(enemyPrefab2, enemyBattleLocation);//enemyPrefab2
+                ftWkyQuiz = true;
                 break;
             case 3:
                 enemyGameObject = Instantiate(enemyPrefab3, enemyBattleLocation);//enemyPrefab3
@@ -144,11 +148,24 @@ public class BattleSystem : MonoBehaviour
     void EndBattle()
     {
         hasBattled = true;
+        exitingBattle = true;
         //TODO: User gains a new ability or is loaded into a previous state. 
         if (currState == BattleState.WON)
         {
             dialogueText.text = "You Won!";
             enemyAnim.Play("DeathAnim");
+
+            if(ftWkyVideo == true)
+            {
+                PlayerBehaviour.hasAbilityTwo = true; 
+            }
+
+            if(ftWkyQuiz == true)
+            {
+                PlayerBehaviour.hasAbilityThree = true; 
+            }
+
+
             StartCoroutine(GetAbility());
             
         }
@@ -434,10 +451,10 @@ public class BattleSystem : MonoBehaviour
 
         //check script where playerprefs save loaded these bools into
 
-        //if(hasAbilityTwo)
+        if(PlayerBehaviour.hasAbilityTwo)
             abilityTwo.SetActive(true);
-        //if (hasAbilityThree)
-       //     abilityThree.SetActive(true);
+        if (PlayerBehaviour.hasAbilityThree)
+           abilityThree.SetActive(true);
        //// if (hasAbilityFour)
        //     abilityFour.SetActive(true);
     }
