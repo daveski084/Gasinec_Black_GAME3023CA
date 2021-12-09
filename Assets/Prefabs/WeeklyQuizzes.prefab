@@ -9,11 +9,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1474943487604832119, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
       propertyPath: objName
-      value: Weekly Quizzes
+      value: Wky Quizzes
       objectReference: {fileID: 0}
     - target: {fileID: 3688666200169230660, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688666200169230660, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688666200169230660, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3688666200169230660, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
       propertyPath: m_LocalPosition.x
@@ -21,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3688666200169230660, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 3688666200169230660, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
       propertyPath: m_LocalPosition.z
@@ -74,6 +82,22 @@ PrefabInstance:
     - target: {fileID: 3688666200473285008, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
       propertyPath: objLevel
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688666200473285010, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688666200473285010, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688666200473285010, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3688666200473285010, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.49
       objectReference: {fileID: 0}
     - target: {fileID: 3688666200473285011, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
       propertyPath: m_Sprite

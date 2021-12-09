@@ -32,9 +32,5 @@ public class BattleMusic : MonoBehaviour
         }      
     }
 
-    //IEnumerator StopMusic()
-    //{
-    //    yield return new WaitForSeconds(2f);
-    //    audioSrc.Stop();
-    //}
+
 }

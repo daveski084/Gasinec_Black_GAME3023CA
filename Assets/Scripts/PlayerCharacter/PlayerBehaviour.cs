@@ -36,7 +36,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public int chance;
     public float transitionSpeed;
-
+    bool isGamePaused;
 
     private void Start()
     {
@@ -66,12 +66,29 @@ public class PlayerBehaviour : MonoBehaviour
             isMoving = true;
         }
 
-        if (Input.GetKeyDown("escape"))
+        if(Input.GetKeyDown("space"))
         {
-            Time.timeScale = 0;
-            PauseMenu.SetActive(true);
+            playerSpeed = 5.5f;
+        }
+        else if (Input.GetKeyUp("space"))
+        {
+            playerSpeed = 3.5f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+           if(isGamePaused)
+           {
+               ResumeGame();
+           }
+           else
+           {
+               PauseGame();
+           }
             //Application.Quit();
         }
+      
+        
 
 
         // Move the player.
@@ -104,5 +121,19 @@ public class PlayerBehaviour : MonoBehaviour
         {
             RollForEncounter();
         }
+    }
+
+    void ResumeGame()
+    {
+        PauseMenu.SetActive(false);
+        Time.timeScale = 0;
+        isGamePaused = false;
+    }
+
+    void PauseGame()
+    {
+        PauseMenu.SetActive(true);
+        Time.timeScale = 0;
+        isGamePaused = true;
     }
 }
