@@ -26,7 +26,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuButtonsManager : MonoBehaviour
 {
-
+    private int scene;
 
     public void OnStartButtonPressed()
     {
@@ -49,12 +49,35 @@ public class MenuButtonsManager : MonoBehaviour
 
     public void OnStartGameButtonPressed()
     {
-        SceneManager.LoadScene("OverWorldScene");
+        scene = 2;
+        StartCoroutine(Loader());
     }
 
 
     public void OnQuitButtonPressed()
     {
         Application.Quit();
+    }
+    public void EscapeGame()
+    {
+        scene = 1;
+        StartCoroutine(Loader());
+    }
+    IEnumerator Loader()
+    {
+        switch (scene)
+        {
+            case 1:
+                Time.timeScale = 1;
+                GameObject.Find("Blocker").GetComponent<Animator>().SetTrigger("Start");
+                yield return new WaitForSeconds(1.0f);
+                SceneManager.LoadScene("MainMenu");
+                break;
+            case 2:
+                GameObject.Find("Blocker").GetComponent<Animator>().SetTrigger("Start");
+                yield return new WaitForSeconds(1.0f);
+                SceneManager.LoadScene("OverWorldScene");
+                break;
+        }
     }
 }

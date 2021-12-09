@@ -26,6 +26,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    public GameObject PauseMenu;
     public static bool isMoving;
     public static int ability1, ability2, ability3, ability4;
 
@@ -39,6 +40,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Start()
     {
+        PauseMenu.SetActive(false);
         ability1 = 1;
         ability2 = 2;
         ability3 = 3;
@@ -66,7 +68,9 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Input.GetKeyDown("escape"))
         {
-            Application.Quit();
+            Time.timeScale = 0;
+            PauseMenu.SetActive(true);
+            //Application.Quit();
         }
 
 

@@ -71,7 +71,7 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD enemyHUD;
 
     public GameObject abilityOne, abilityTwo, abilityThree, abilityFour;
-    public ParticleSystem playerParticle, enemyParticle;
+    public ParticleSystem playerParticle, enemyParticle, playerParticle2, enemyParticle2;
     
     private int whichEnemy;
     private GameObject enemyGameObject;
@@ -83,8 +83,7 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         audSrc = GetComponent<AudioSource>();
-        whichEnemy = Random.Range(1, 6);
-        Debug.Log(whichEnemy);
+        whichEnemy = Random.Range(1, 5);
         HideActions();
         currState = BattleState.START;
         StartCoroutine(SetUpBattle());
@@ -108,16 +107,16 @@ public class BattleSystem : MonoBehaviour
                 enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);
                 break;
             case 2:
-                enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);//enemyPrefab2
+                enemyGameObject = Instantiate(enemyPrefab2, enemyBattleLocation);//enemyPrefab2
                 break;
             case 3:
-                enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);//enemyPrefab3
+                enemyGameObject = Instantiate(enemyPrefab3, enemyBattleLocation);//enemyPrefab3
                 break;
             case 4:
-                enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);//enemyPrefab4
+                enemyGameObject = Instantiate(enemyPrefab4, enemyBattleLocation);//enemyPrefab4
                 break;
             case 5:
-                enemyGameObject = Instantiate(enemyPrefab, enemyBattleLocation);//enemyPrefab5
+                enemyGameObject = Instantiate(enemyPrefab5, enemyBattleLocation);//enemyPrefab5
                 break;
         }
         enemyAnim = enemyGameObject.GetComponent<Animator>();
@@ -131,7 +130,6 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(2.0f);
         //set up complete now hand control to the user. 
-
         currState = BattleState.PLAYERTURN;
         PlayerTurn();
     }
@@ -206,24 +204,140 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        if (enemyBO.currHP < (enemyBO.maxHP / 2)) // Enemy heals if there is less than half of health. 
+        switch (whichEnemy)
         {
-            dialogueText.text = enemyBO.objName + " is looking hurt...";
-            yield return new WaitForSeconds(2.0f);
-            enemyParticle.Play();
-            dialogueText.text = enemyBO.objName + " has healed a little bit.";
-            enemyBO.Heal(enemyBO.healAmount);
-            enemyHUD.UpdateHP(enemyBO.currHP);
-        }
-        else
-        {
-            dialogueText.text = enemyBO.objName + " prepares.";
-            yield return new WaitForSeconds(2.0f);
-            playerAnim.Play("DamagedAnim");
-            dialogueText.text = enemyBO.objName + "Attacks!";
-            isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
-            playerHUD.UpdateHP(playerBO.currHP);
-            audSrc.PlayOneShot(enemyMove1); 
+            case 1: //weekly Videos
+                if (enemyBO.currHP < (enemyBO.maxHP / 2)) // Enemy heals if there is less than half of health. 
+                {
+                    dialogueText.text = enemyBO.objName + " is looking hurt...";
+                    yield return new WaitForSeconds(2.0f);
+                    enemyParticle.Play();
+                    dialogueText.text = enemyBO.objName + " has healed a little bit.";
+                    enemyBO.Heal(enemyBO.healAmount);
+                    enemyHUD.UpdateHP(enemyBO.currHP);
+                }
+                else
+                {
+                    dialogueText.text = enemyBO.objName + " prepares.";
+                    yield return new WaitForSeconds(2.0f);
+                    playerAnim.Play("DamagedAnim");
+                    dialogueText.text = enemyBO.objName + "Attacks!";
+                    isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
+                    playerHUD.UpdateHP(playerBO.currHP);
+                    audSrc.PlayOneShot(enemyMove1);
+                }
+                break;
+            case 2://WeeklyQuizes
+                if (enemyBO.currHP < (enemyBO.maxHP * 0.5)) 
+                {
+                    if(Random.Range(1, 101) < 75)
+                    {
+                        dialogueText.text = enemyBO.objName + " looks scared...";
+                        yield return new WaitForSeconds(2.0f);
+                        if (enemyBO.Escape())
+                        {
+                            dialogueText.text = enemyBO.objName + " ran away safely";
+                            enemyAnim.Play("EnemyEscAnim");
+                        }
+                        else
+                        {
+                            dialogueText.text = enemyBO.objName + " tried to run away, but was frozen in fear";
+                        }
+                    }
+                    else
+                    {
+                        dialogueText.text = enemyBO.objName + " is looking hurt...";
+                        yield return new WaitForSeconds(2.0f);
+                        enemyParticle.Play();
+                        dialogueText.text = enemyBO.objName + " has healed a little bit.";
+                        enemyBO.Heal(enemyBO.healAmount);
+                        enemyHUD.UpdateHP(enemyBO.currHP);
+                    }
+                }
+                else
+                {
+                    dialogueText.text = enemyBO.objName + " prepares.";
+                    yield return new WaitForSeconds(2.0f);
+                    playerAnim.Play("DamagedAnim");
+                    dialogueText.text = enemyBO.objName + "Attacks!";
+                    isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
+                    playerHUD.UpdateHP(playerBO.currHP);
+                    audSrc.PlayOneShot(enemyMove1);
+                }
+                break;
+            case 3://WeeklyExercises
+                if (enemyBO.currHP < (enemyBO.maxHP * 0.25))
+                {
+                    dialogueText.text = enemyBO.objName + " looks scared...";
+                    yield return new WaitForSeconds(2.0f);
+                    if (enemyBO.Escape())
+                    {
+                        dialogueText.text = enemyBO.objName + " ran away safely";
+                        enemyAnim.Play("EnemyEscAnim");
+                    }
+                    else
+                    {
+                        dialogueText.text = enemyBO.objName + " tried to run away, but was frozen in fear";
+                    }
+                }
+                else
+                {
+                    if (Random.Range(1, 101) < 50)
+                    {
+                        dialogueText.text = enemyBO.objName + " seems to be thinking hard.";
+                        yield return new WaitForSeconds(2.0f);
+                        enemyBO.ProblemSolve(enemyBO);
+                        enemyParticle2.Play();
+                        dialogueText.text = enemyBO.objName + " has found your weak spot";
+                    }
+                    else
+                    {
+                        dialogueText.text = enemyBO.objName + " prepares.";
+                        yield return new WaitForSeconds(2.0f);
+                        playerAnim.Play("DamagedAnim");
+                        dialogueText.text = enemyBO.objName + "Attacks!";
+                        isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
+                        playerHUD.UpdateHP(playerBO.currHP);
+                        audSrc.PlayOneShot(enemyMove1);
+                    }
+                }
+                break;
+            case 4://Midterm
+                dialogueText.text = enemyBO.objName + " seems to be thinking hard.";
+                yield return new WaitForSeconds(2.0f);
+                enemyBO.ProblemSolve(enemyBO);
+                enemyParticle2.Play();
+                dialogueText.text = enemyBO.objName + " has found your weak spot";
+                if (Random.Range(1, 101) < 50)
+                {
+                    dialogueText.text = enemyBO.objName + " prepares.";
+                    yield return new WaitForSeconds(2.0f);
+                    playerAnim.Play("DamagedAnim");
+                    dialogueText.text = enemyBO.objName + "Attacks!";
+                    isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
+                    playerHUD.UpdateHP(playerBO.currHP);
+                    audSrc.PlayOneShot(enemyMove1);
+                }
+                else
+                {
+                    dialogueText.text = enemyBO.objName + " seems to be ascending!";
+                    yield return new WaitForSeconds(2.0f);
+                    if (enemyBO.Struggle())
+                    {
+                        yield return new WaitForSeconds(1.0f);
+                        dialogueText.text = enemyBO.objName + " smites thou mortal!";
+                        currState = BattleState.LOST;
+                        EndBattle();
+                    }
+                    else
+                    {
+                        dialogueText.text = enemyBO.objName + " no, wait... just gas.";
+                    }
+                }
+                    break;
+            case 5://FinalExam
+                //enemyPrefab5
+                break;
         }
 
         yield return new WaitForSeconds(1.0f);

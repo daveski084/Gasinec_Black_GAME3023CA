@@ -52,5 +52,8 @@ public class SaveGame : MonoBehaviour
     {
 
     }
-
+    public void EscapeGame()
+    {
+        
+    }
 }

@@ -33,6 +33,7 @@ public class BattleObject : MonoBehaviour
 
     public int escapeChance;
     public int StruggleChance;
+    public int damageIncrease;
 
 
 
@@ -61,24 +62,32 @@ public class BattleObject : MonoBehaviour
         }
     }
 
-    public void ProblemSolve()
+    public void ProblemSolve(BattleObject BO)
     {
-        //reduce damage
+        BO.damage += damageIncrease;
     }
-    public void Struggle()
+    public bool Struggle()
     {
         int randomNumber = Random.Range(1, 101);
         if (randomNumber <= StruggleChance)
         {
-            //instant win
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
-    public void Escape()
+    public bool Escape()
     {
         int randomNumber = Random.Range(1, 101);
         if (randomNumber <= escapeChance)
         {
-            //ran away
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
