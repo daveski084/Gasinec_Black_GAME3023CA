@@ -59,7 +59,7 @@ public class BattleSystem : MonoBehaviour
     public AudioSource audSrc;
 
     public GameObject playerPrefab;
-    public GameObject enemyPrefab, enemyPrefab2, enemyPrefab3, enemyPrefab4, enemyPrefab5;
+    public GameObject enemyPrefab, enemyPrefab2, enemyPrefab3, enemyPrefab4, enemyPrefab5, essanceObj;
     public Transform playerBattleLocation;
     public Transform enemyBattleLocation; 
 
@@ -71,7 +71,8 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD enemyHUD;
 
     public GameObject abilityOne, abilityTwo, abilityThree, abilityFour;
-    public ParticleSystem playerParticle, enemyParticle, playerParticle2, enemyParticle2;
+    public ParticleSystem playerParticle, enemyParticle, playerParticle2, enemyParticle2, essence, 
+                            playerParticle3, enemyParticle3, playerParticle4, enemyParticle4;
     
     private int whichEnemy;
     private GameObject enemyGameObject;
@@ -141,14 +142,39 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "You Won!";
             enemyAnim.Play("DeathAnim");
-           //TODO: Save currHealth and set currhealth to this value when reloading the overworld. 
+            StartCoroutine(GetAbility());
+            //TODO: Save currHealth and set currhealth to this value when reloading the overworld. 
         }
         else if (currState == BattleState.LOST)
         {
             dialogueText.text = "You have lost.";
             playerAnim.Play("DeathAnim");
-            //load last save
+            StartCoroutine(Respawn());
+
         }
+    }
+    IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(2f);
+        //load last save
+        GameObject.Find("Blocker").GetComponent<Animator>().SetTrigger("Start");
+        yield return new WaitForSeconds(1.0f);
+        SceneManager.LoadScene("OverWorldScene");
+    }
+    IEnumerator GetAbility()
+    {
+        essanceObj.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        essence.Play();
+        yield return new WaitForSeconds(1.9f);
+        dialogueText.text = enemyBO.objName + "'s ability is now yours!";
+        essanceObj.SetActive(false);
+        //add ability bool to player prefs **UPDATE BUTTONS AT BOTTOM OF SCRIPT** and button text
+        yield return new WaitForSeconds(2f);
+        GameObject.Find("Blocker").GetComponent<Animator>().SetTrigger("Start");
+        yield return new WaitForSeconds(1.0f);
+        SceneManager.LoadScene("OverWorldScene");
+
     }
     //2. Waits for the user to choose an action. At the time of this writing the player can only Attack and Heal. 
     void PlayerTurn()
@@ -324,14 +350,18 @@ public class BattleSystem : MonoBehaviour
                     yield return new WaitForSeconds(2.0f);
                     if (enemyBO.Struggle())
                     {
+                        enemyAnim.Play("AcsendAnim");
                         yield return new WaitForSeconds(1.0f);
                         dialogueText.text = enemyBO.objName + " smites thou mortal!";
+                        playerParticle3.Play();
+                        playerAnim.Play("DamagedAnim");
                         currState = BattleState.LOST;
                         EndBattle();
                     }
                     else
                     {
                         dialogueText.text = enemyBO.objName + " no, wait... just gas.";
+                        enemyParticle4.Play();
                     }
                 }
                     break;
