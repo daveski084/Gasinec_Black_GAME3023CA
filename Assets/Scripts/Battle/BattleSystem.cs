@@ -92,6 +92,7 @@ public class BattleSystem : MonoBehaviour
         //whichEnemy = Random.Range(1, 5);
         whichEnemy = PlayerBehaviour.enemyGrass;
         HideActions();
+        essanceObj.SetActive(false);
         currState = BattleState.START;
         StartCoroutine(SetUpBattle());
     }
@@ -263,6 +264,51 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(EnemyTurn());
     }
 
+    IEnumerator PlayerEscape()
+    {
+        HideActions();
+        dialogueText.text = "You try to run away...";
+        yield return new WaitForSeconds(1.0f);
+        if (Random.Range(1, 101) < 50)
+        {
+            playerAnim.Play("EscapeAnim");
+            dialogueText.text = "You ran away safely";
+            exitingBattle = true;
+            yield return new WaitForSeconds(1f);
+            GameObject.Find("Blocker").GetComponent<Animator>().SetTrigger("Start");
+            yield return new WaitForSeconds(1.0f);
+            SceneManager.LoadScene("OverWorldScene");
+        }
+        else
+        {
+            dialogueText.text = "You are too scared to run!";
+        }
+        yield return new WaitForSeconds(2.0f);
+        currState = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
+    }
+
+    IEnumerator PlayerStudy()
+    {
+        HideActions();
+        dialogueText.text = "You study your enemy's movements.";
+        yield return new WaitForSeconds(1.0f);
+        if (Random.Range(1, 101) < 75)
+        {
+            playerParticle2.Play();
+            playerBO.ProblemSolve(playerBO);
+            dialogueText.text = " You found their weak spot!";
+        }
+        else
+        {
+            dialogueText.text = " ...You might need glasses.";
+        }
+
+        yield return new WaitForSeconds(2.0f);
+        currState = BattleState.ENEMYTURN;
+        StartCoroutine(EnemyTurn());
+    }
+
     IEnumerator EnemyTurn()
     {
         switch (whichEnemy)
@@ -422,11 +468,6 @@ public class BattleSystem : MonoBehaviour
     // Ability button logic:
     public void OnAttackButtonPressed()
     {
-        // If it's not the player's turn, GTFO. 
-         if (currState != BattleState.PLAYERTURN)
-         {
-            return;
-         }
 
          StartCoroutine(PlayerAttack());
     }
@@ -437,16 +478,15 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(PlayerHeal());
     }
 
-    public void OnStrugglePressed()
+    public void OnStudyPressed()
     {
-        // struggle
-        // StartCoroutine(Struggle());
+        StartCoroutine(PlayerStudy());
     }
 
-    public void OnUnityExperiencePressed()
+    public void OnEscapePressed()
     {
         // You used your unity experiance and defaeted the culminating assignment!
-       // StartCoroutine(UnityExp());
+        StartCoroutine(PlayerEscape());
     }
 
     private void HideActions()
