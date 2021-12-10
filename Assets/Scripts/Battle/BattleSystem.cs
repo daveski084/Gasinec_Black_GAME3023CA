@@ -53,8 +53,9 @@ public class BattleSystem : MonoBehaviour
 {
     public GameObject saveData;
     public AudioClip enemyMove1;
-    //public AudioClip a4SFX
-    //public AudioClip a3SFX
+    public AudioClip enemyMove2;
+    public AudioClip enemyMove3;
+    public AudioClip enemyMove4;
     public AudioClip attackSFX;
     public AudioClip healSFX;
     public AudioSource audSrc;
@@ -357,6 +358,7 @@ public class BattleSystem : MonoBehaviour
                         yield return new WaitForSeconds(2.0f);
                         enemyParticle.Play();
                         dialogueText.text = enemyBO.objName + " has healed a little bit.";
+                        audSrc.PlayOneShot(healSFX);
                         enemyBO.Heal(enemyBO.healAmount);
                         enemyHUD.UpdateHP(enemyBO.currHP);
                     }
@@ -369,7 +371,7 @@ public class BattleSystem : MonoBehaviour
                     dialogueText.text = enemyBO.objName + "Attacks!";
                     isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
                     playerHUD.UpdateHP(playerBO.currHP);
-                    audSrc.PlayOneShot(enemyMove1);
+                    audSrc.PlayOneShot(enemyMove2);
                 }
                 break;
             case 3://WeeklyExercises
@@ -405,11 +407,11 @@ public class BattleSystem : MonoBehaviour
                         dialogueText.text = enemyBO.objName + "Attacks!";
                         isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
                         playerHUD.UpdateHP(playerBO.currHP);
-                        audSrc.PlayOneShot(enemyMove1);
+                        audSrc.PlayOneShot(enemyMove3);
                     }
                 }
                 break;
-            case 4://Midterm
+            case 4://Final
                 dialogueText.text = enemyBO.objName + " seems to be thinking hard.";
                 yield return new WaitForSeconds(2.0f);
                 enemyBO.ProblemSolve(enemyBO);
@@ -423,7 +425,7 @@ public class BattleSystem : MonoBehaviour
                     dialogueText.text = enemyBO.objName + "Attacks!";
                     isPlayerDead = playerBO.TakeDamage(enemyBO.damage);
                     playerHUD.UpdateHP(playerBO.currHP);
-                    audSrc.PlayOneShot(enemyMove1);
+                    audSrc.PlayOneShot(enemyMove4);
                 }
                 else
                 {
@@ -446,7 +448,7 @@ public class BattleSystem : MonoBehaviour
                     }
                 }
                     break;
-            case 5://FinalExam
+            case 5://scrapped.
                 //enemyPrefab5
                 break;
         }

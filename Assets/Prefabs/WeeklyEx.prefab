@@ -12,6 +12,10 @@ PrefabInstance:
       value: Wkly Ex's
       objectReference: {fileID: 0}
     - target: {fileID: -1474943487604832119, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
+      propertyPath: objLevel
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: -1474943487604832119, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
       propertyPath: healAmount
       value: 10
       objectReference: {fileID: 0}

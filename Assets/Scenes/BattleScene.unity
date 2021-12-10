@@ -5377,6 +5377,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveData: {fileID: 0}
   enemyMove1: {fileID: 8300000, guid: 7b9c0a89881e07a499aa5d188acffcf7, type: 3}
+  enemyMove2: {fileID: 8300000, guid: 2ae4a7a664a03a54d8bda029b455bd4c, type: 3}
+  enemyMove3: {fileID: 8300000, guid: 66f9083b0efbf9c40bdba8f61cee8b88, type: 3}
+  enemyMove4: {fileID: 8300000, guid: 44f68d0df0c728f4daaae70baf3a9679, type: 3}
   attackSFX: {fileID: 8300000, guid: 6c74706c151ce4d479e407a53fc58b0f, type: 3}
   healSFX: {fileID: 8300000, guid: 639703f043f24474ba5c973935e713f7, type: 3}
   audSrc: {fileID: 255875312}
