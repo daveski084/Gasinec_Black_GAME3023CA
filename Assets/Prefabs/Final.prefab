@@ -31,6 +31,14 @@ PrefabInstance:
       propertyPath: healAmount
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -1474943487604832119, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
+      propertyPath: StruggleChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: -1474943487604832119, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
+      propertyPath: damageIncrease
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3688666200169230660, guid: 3eeb992928e556b4fac0bfbbe6f34770, type: 3}
       propertyPath: m_RootOrder
       value: 0
